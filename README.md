@@ -1,6 +1,6 @@
 # reddit-reader
 
-This is a Reddit Reader app to show how my iOS development skills.
+This is a Reddit Reader app to show how iOS development skills.
 
 ## Objective
 
