@@ -18,7 +18,7 @@ class ApplicationDataTests: XCTestCase {
         do {
             post = try PostsMother.defaultPost()
             secondPost = try PostsMother.secondPost()
-            ApplicationData.shared.posts = nil
+            ApplicationData.shared.localDatabase.posts = []
        } catch {
             print("\(error)")
         }
@@ -34,7 +34,7 @@ class ApplicationDataTests: XCTestCase {
             return
         }
         ApplicationData.shared.addMorePosts(posts: [post])
-        XCTAssertEqual(ApplicationData.shared.posts?.count, 1, "There should be one post")
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 1, "There should be one post")
     }
 
     func test_addNewPostToActualData() {
@@ -44,7 +44,7 @@ class ApplicationDataTests: XCTestCase {
         }
         ApplicationData.shared.addMorePosts(posts: [post])
         ApplicationData.shared.addMorePosts(posts: [secondPost])
-        XCTAssertEqual(ApplicationData.shared.posts?.count, 2, "There should be two posts")
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 2, "There should be two posts")
     }
     func test_addPostThatAlreadyExists() {
         guard let post = self.post, let secondPost = secondPost else {
@@ -54,7 +54,19 @@ class ApplicationDataTests: XCTestCase {
         ApplicationData.shared.addMorePosts(posts: [post])
         ApplicationData.shared.addMorePosts(posts: [secondPost])
         ApplicationData.shared.addMorePosts(posts: [post])
-        XCTAssertEqual(ApplicationData.shared.posts?.count, 2, "There should be two posts")
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 2, "There should be two posts")
     }
-
+    func test_databaseInitialization() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.initDatabase()
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        ApplicationData.shared.localDatabase.posts = []
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.isEmpty, true, "The database should be empty")
+        ApplicationData.shared.initDatabase()
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 2, "There should be two posts")
+    }
 }

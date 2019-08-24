@@ -11,11 +11,37 @@ import Foundation
 class ApplicationData {
     static let redditURLString: String = "https://www.reddit.com/top/.json?count=50"
     static var shared = ApplicationData()
-    var posts: Set<Post>?
+    var localDatabase = LocalDatabase(posts: Set<Post>())
+    
+    func initDatabase() {
+        readLocalDatabaseFromFilesystem()
+    }
+    
     func addMorePosts(posts: [Post]) {
-        if self.posts == nil {
-            self.posts = Set<Post>()
+        self.localDatabase.posts = self.localDatabase.posts.union(posts)
+        saveLocalDatabaseToFilesystem()
+    }
+    
+    private var filesystemQueue: DispatchQueue = DispatchQueue(label: "fileSystemQueue")
+    
+    private func saveLocalDatabaseToFilesystem() {
+        self.filesystemQueue.sync { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.localDatabase.saveToFile()
+            } catch {
+                print("Write to filesystem error \(error)")
+            }
         }
-        self.posts = self.posts?.union(posts)
+    }
+    private func readLocalDatabaseFromFilesystem() {
+        self.filesystemQueue.sync { [weak self] in
+            guard let self = self else { return }
+            do {
+                try self.localDatabase.readFromFile()
+            } catch {
+                print("Read from filesystem error \(error)")
+            }
+        }
     }
 }

@@ -170,7 +170,7 @@ class PostsHandlerTests: XCTestCase {
     func test_noDataIsReturnedIfNetworkIsNotPresent() {
         session.mockedData = nil
         session.mockedError = PostHandlerErrors.networkError
-        ApplicationData.shared.posts = nil
+        ApplicationData.shared.localDatabase.posts = []
         let service = PostService(client: httpClient)
         let postsExpectation = expectation(description: "PostsHandler expectation")
         consumer1.postService = service

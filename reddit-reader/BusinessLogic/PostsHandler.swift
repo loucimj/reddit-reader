@@ -75,7 +75,7 @@ extension PostsHandler {
                     }
                 }
                 #warning("merge data before assigning to singleton")
-                ApplicationData.shared.posts = posts
+                ApplicationData.shared.localDatabase.posts = posts
             } catch {
                 self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
             }
@@ -84,10 +84,7 @@ extension PostsHandler {
         }
     }
     func readPosts() {
-        guard let posts = ApplicationData.shared.posts else {
-            postHandlerHasAnError(error: PostHandlerErrors.noPostsAvailable)
-            return
-        }
+        let posts = ApplicationData.shared.localDatabase.posts
         didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
     }
     
