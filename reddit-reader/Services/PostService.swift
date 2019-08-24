@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+class PostService {
+    func getPosts(successCallback: (Data)->(), errorCallback:(Error)->()) {
+        
+    }
+}

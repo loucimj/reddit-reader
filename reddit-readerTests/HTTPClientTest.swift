@@ -9,19 +9,40 @@
 import XCTest
 @testable import RedditReader
 
-class MockURLSessionDataTask {
-    func resume() { }
+class MockURLSessionDataTask: URLSessionDataTask  {
+    override func resume() {
+        print("empty resume for dataTask")
+    }
 }
-view raw
 
-class reddit_readerTests: XCTestCase {
-
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class MockURLSession: URLSessionProtocol {
+    private (set) var lastURL: URL?
+    func dataTask(with request: URLRequest, completionHandler: @escaping MockURLSession.DataTaskResult) -> URLSessionDataTaskProtocol {
+        lastURL = request.url
+        return MockURLSessionDataTask()
     }
+}
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+class HTTPClientTests: XCTestCase {
     
+    var httpClient: HTTPClient!
+    let session = MockURLSession()
+    
+    override func setUp() {
+        super.setUp()
+        httpClient = HTTPClient(session: session)
+    }
+    override func tearDown() {
+        super.tearDown()
+    }
+    func test_URLisSetProperly() {
+        guard let url = URL(string: "http://apple.com") else {
+            XCTFail("Cannot construct testing URL")
+            return
+        }
+        httpClient.get(url: url) { data, error in
+            print("HTTPClient returns data")
+        }
+        XCTAssert(url.absoluteString == (self.session.lastURL?.absoluteString ?? ""), "The last request done by the client should be present in the session")
+    }
 }

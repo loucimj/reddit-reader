@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+struct Post: Codable {
+    let id: String
+    let title: String
+    let author: String
+    let commentsQuantity: Int
+    let creationDateUTC: Double
+    let thumbnail: String
+    var thumbnailURL: URL? {
+        return URL(string: thumbnail)
+    }
+}

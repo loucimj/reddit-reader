@@ -8,6 +8,22 @@
 
 import XCTest
 
+@testable import RedditReader
+
+class MockURLSessionDataTask {
+    func resume() { }
+}
+
+class MockURLSession: URLSessionProtocol {
+    var nextDataTask = MockURLSessionDataTask()
+    private (set) var lastURL: URL?
+    func dataTask(with request: NSURLRequest, completionHandler: @escaping DataTaskResult) -> URLSessionDataTaskProtocol {
+        lastURL = request.url
+        completionHandler(nextData, successHttpURLResponse(request: request), nextError)
+        return nextDataTask
+    }
+}
+
 class HTTPClientTests: XCTestCase {
 
     override func setUp() {
@@ -17,17 +33,9 @@ class HTTPClientTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testGetRequest() {
+        
     }
 
 }
