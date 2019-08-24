@@ -11,5 +11,11 @@ import Foundation
 class ApplicationData {
     static let redditURLString: String = "https://www.reddit.com/top/.json?count=50"
     static var shared = ApplicationData()
-    var posts: [Post]?
+    var posts: Set<Post>?
+    func addMorePosts(posts: [Post]) {
+        if self.posts == nil {
+            self.posts = Set<Post>()
+        }
+        self.posts = self.posts?.union(posts)
+    }
 }

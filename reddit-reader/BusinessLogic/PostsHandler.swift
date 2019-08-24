@@ -31,7 +31,7 @@ extension PostHandlerErrors: LocalizedError {
 
 protocol PostsHandler: class {
     var postService: PostService? { get set }
-    func postsHaveArrived(posts: [Post])
+    func didReceive(posts: [Post])
     func postHandlerHasAnError(error: Error)
 }
 
@@ -62,13 +62,13 @@ extension PostsHandler {
                     self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
                     return
                 }
-                var posts: [Post] = []
+                var posts: Set<Post> = []
                 for item in postsDictionary {
                     do {
                         if let dataDictionary = item["data"] as? [String: Any] {
                             let post = try Post(dictionary: dataDictionary)
                             print("\(post)")
-                            posts.append(post)
+                            posts.insert(post)
                         }
                     } catch {
                         print("\(error)")
@@ -88,7 +88,7 @@ extension PostsHandler {
             postHandlerHasAnError(error: PostHandlerErrors.noPostsAvailable)
             return
         }
-        postsHaveArrived(posts: posts)
+        didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
     }
     
 }

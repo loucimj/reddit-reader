@@ -24,6 +24,8 @@
 		417B202223118682009FF015 /* PostsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202123118682009FF015 /* PostsHandler.swift */; };
 		417B2024231186AE009FF015 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B2023231186AE009FF015 /* Post.swift */; };
 		417B202623118AEC009FF015 /* PostsHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202523118AEC009FF015 /* PostsHandlerTests.swift */; };
+		417B20282311D0B6009FF015 /* ApplicationDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20272311D0B6009FF015 /* ApplicationDataTests.swift */; };
+		417B202A2311D0CE009FF015 /* PostsMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20292311D0CE009FF015 /* PostsMother.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		417B202123118682009FF015 /* PostsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsHandler.swift; sourceTree = "<group>"; };
 		417B2023231186AE009FF015 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		417B202523118AEC009FF015 /* PostsHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsHandlerTests.swift; sourceTree = "<group>"; };
+		417B20272311D0B6009FF015 /* ApplicationDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDataTests.swift; sourceTree = "<group>"; };
+		417B20292311D0CE009FF015 /* PostsMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsMother.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 				417B201E23117CF0009FF015 /* PostServiceTest.swift */,
 				417B1FE1230F5393009FF015 /* Info.plist */,
 				417B202523118AEC009FF015 /* PostsHandlerTests.swift */,
+				417B20272311D0B6009FF015 /* ApplicationDataTests.swift */,
+				417B20292311D0CE009FF015 /* PostsMother.swift */,
 			);
 			path = "reddit-readerTests";
 			sourceTree = "<group>";
@@ -302,6 +308,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				417B20282311D0B6009FF015 /* ApplicationDataTests.swift in Sources */,
+				417B202A2311D0CE009FF015 /* PostsMother.swift in Sources */,
 				417B2017231161B8009FF015 /* HTTPClientTest.swift in Sources */,
 				417B2010231161B1009FF015 /* RedditReaderTests.swift in Sources */,
 				417B201B231179A0009FF015 /* DebugPrint.swift in Sources */,

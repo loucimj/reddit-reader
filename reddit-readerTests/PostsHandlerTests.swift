@@ -14,7 +14,7 @@ class MockPostsConsumer: PostsHandler {
     var postService: PostService?
     var successCallback: (([Post])->())?
     var errorCallback: ((Error)->())?
-    func postsHaveArrived(posts: [Post]) {
+    func didReceive(posts: [Post]) {
         successCallback?(posts)
     }
     

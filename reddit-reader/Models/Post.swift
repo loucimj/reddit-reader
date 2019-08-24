@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Post: Codable {
+struct Post: Codable, Hashable {
     let id: String
     let title: String
     let author: String
@@ -28,5 +28,10 @@ struct Post: Codable {
     }
     init(dictionary: [String: Any]) throws {
         self = try JSONDecoder().decode(Post.self, from: JSONSerialization.data(withJSONObject: dictionary))
+    }
+}
+extension Post: Equatable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        return lhs.id == rhs.id
     }
 }
