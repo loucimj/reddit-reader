@@ -14,6 +14,8 @@ class MockPostsConsumer: PostsHandler {
     var postService: PostService?
     var successCallback: (([Post])->())?
     var errorCallback: ((Error)->())?
+    var readPostCallback: ((Post)->())?
+    
     func didReceive(posts: [Post]) {
         successCallback?(posts)
     }
@@ -22,6 +24,9 @@ class MockPostsConsumer: PostsHandler {
         errorCallback?(error)
     }
     
+    func didMarkPostAsRead(post: Post) {
+        readPostCallback?(post)
+    }
     
 }
 
@@ -29,9 +34,17 @@ class PostsHandlerTests: XCTestCase {
     var httpClient: HTTPClient!
     let session = MockURLSession()
     var consumer1 = MockPostsConsumer()
+    var post: Post?
+    var secondPost: Post?
     override func setUp() {
         super.setUp()
         httpClient = HTTPClient(session: session)
+        do {
+            post = try PostsMother.defaultPost()
+            secondPost = try PostsMother.secondPost()
+        } catch {
+            
+        }
     }
 
     override func tearDown() {
@@ -189,6 +202,84 @@ class PostsHandlerTests: XCTestCase {
         consumer1.getMorePosts()
         waitForExpectations(timeout: 1)
 
+    }
+
+    func test_markPostAsRead() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        
+        let service = PostService(client: httpClient)
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        consumer1.postService = service
+        consumer1.readPostCallback = { post in
+            XCTAssertTrue(ApplicationData.shared.localDatabase.readIds.contains(secondPost.id), "The id should be mark as read")
+            postsExpectation.fulfill()
+        }
+        consumer1.errorCallback = { error in
+            XCTFail("Service should throw an error")
+        }
+        consumer1.markPostAsRead(post: secondPost)
+
+        waitForExpectations(timeout: 5)
+
+    }
+    func test_postIsStillMarkedAsRead() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        
+        let service = PostService(client: httpClient)
+        consumer1.postService = service
+        consumer1.readPostCallback = { post in
+
+        }
+        consumer1.errorCallback = { error in
+            XCTFail("Service should not throw an error")
+        }
+        consumer1.markPostAsRead(post: secondPost)
+        
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.initDatabase()
+        XCTAssertTrue(ApplicationData.shared.localDatabase.readIds.contains(secondPost.id), "The id should be mark as read")
+    }
+    
+    func test_readPostsReturnsPostsWithReadMarks() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        let service = PostService(client: httpClient)
+        consumer1.postService = service
+        consumer1.successCallback = { posts in
+            guard let postReference = posts.filter({ $0.id == secondPost.id}).first else {
+                XCTFail("Post not found")
+                return
+            }
+            XCTAssert(postReference.isRead, "The post should be marked as read")
+            postsExpectation.fulfill()
+        }
+        consumer1.errorCallback = { error in
+            XCTFail("Service should not throw an error")
+        }
+        consumer1.markPostAsRead(post: secondPost)
+        consumer1.readPosts()
+        waitForExpectations(timeout: 1)
     }
 
 }

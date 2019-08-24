@@ -15,6 +15,7 @@ struct Post: Codable, Hashable {
     let commentsQuantity: Int
     let creationDateUTC: Double
     let thumbnail: String
+    var isRead: Bool = false
     var thumbnailURL: URL? {
         return URL(string: thumbnail)
     }

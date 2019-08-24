@@ -32,10 +32,12 @@ extension PostHandlerErrors: LocalizedError {
 protocol PostsHandler: class {
     var postService: PostService? { get set }
     func didReceive(posts: [Post])
+    func didMarkPostAsRead(post: Post)
     func postHandlerHasAnError(error: Error)
 }
 
 extension PostsHandler {
+    func didMarkPostAsRead(post: Post) {}
     
     func getMorePosts() {
         guard let service = postService else {
@@ -62,30 +64,35 @@ extension PostsHandler {
                     self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
                     return
                 }
-                var posts: Set<Post> = []
+                var posts: Array<Post> = []
                 for item in postsDictionary {
                     do {
                         if let dataDictionary = item["data"] as? [String: Any] {
                             let post = try Post(dictionary: dataDictionary)
                             print("\(post)")
-                            posts.insert(post)
+                            posts.append(post)
                         }
                     } catch {
                         print("\(error)")
                     }
                 }
-                #warning("merge data before assigning to singleton")
-                ApplicationData.shared.localDatabase.posts = posts
+                ApplicationData.shared.addMorePosts(posts: posts)
             } catch {
                 self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
             }
-            #warning("Store data locally and merge with previous information")
             self.readPosts()
         }
     }
     func readPosts() {
-        let posts = ApplicationData.shared.localDatabase.posts
+        let posts = ApplicationData.shared.localDatabase.posts.map({ (post: Post) -> Post in
+            var newPost = post
+            newPost.isRead = ApplicationData.shared.localDatabase.readIds.contains(post.id)
+            return newPost
+        })
         didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
     }
-    
+    func markPostAsRead(post: Post) {
+        ApplicationData.shared.markPostAsRead(post: post)
+        didMarkPostAsRead(post: post)
+    }
 }

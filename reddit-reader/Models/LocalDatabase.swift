@@ -9,6 +9,7 @@
 import Foundation
 struct LocalDatabase: Codable {
     var posts: Set<Post>
+    var readIds: Set<String> = Set<String>()
 }
 
 extension LocalDatabase: Storable {
