@@ -38,4 +38,14 @@ class PostServiceTest: XCTestCase {
         }
         XCTAssertEqual(session.mockedData, returnedData, "The data should be equal to the expected values")
     }
+    func test_serviceHasAnError() {
+        session.mockedData = nil
+        session.mockedError = PostServiceErrors.serviceReturnedEmtpyData
+        var returnedError: Error?
+        let service = PostService(client: httpClient)
+        service.getPosts() { data, error in
+            returnedError = error
+        }
+        XCTAssert(returnedError?.localizedDescription == session.mockedError?.localizedDescription, "The error should be equal to the expected values")
+    }
 }
