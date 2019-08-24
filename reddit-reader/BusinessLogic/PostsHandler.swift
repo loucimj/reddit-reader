@@ -12,6 +12,7 @@ enum PostHandlerErrors: Error {
     case noServiceIsProvided
     case noPostsAvailable
     case serviceResponseIsNotParseable
+    case networkError
 }
 extension PostHandlerErrors: LocalizedError {
     public var errorDescription: String? {
@@ -22,6 +23,8 @@ extension PostHandlerErrors: LocalizedError {
             return NSLocalizedString("No post service is provided", comment:"")
         case .serviceResponseIsNotParseable:
             return NSLocalizedString("Response from service could not be parsed", comment:"")
+        case .networkError:
+            return NSLocalizedString("Network Error", comment:"")
         }
     }
 }
@@ -76,9 +79,9 @@ extension PostsHandler {
             } catch {
                 self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
             }
+            #warning("Store data locally and merge with previous information")
+            self.readPosts()
         }
-        #warning("Store data locally and merge with previous information")
-        readPosts()
     }
     func readPosts() {
         guard let posts = ApplicationData.shared.posts else {

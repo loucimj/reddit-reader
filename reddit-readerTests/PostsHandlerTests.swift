@@ -166,5 +166,29 @@ class PostsHandlerTests: XCTestCase {
         consumer1.getMorePosts()
         waitForExpectations(timeout: 1)
     }
+    
+    func test_noDataIsReturnedIfNetworkIsNotPresent() {
+        session.mockedData = nil
+        session.mockedError = PostHandlerErrors.networkError
+        ApplicationData.shared.posts = nil
+        let service = PostService(client: httpClient)
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        consumer1.postService = service
+        consumer1.successCallback = { posts in
+            XCTFail("Service should throw an error")
+        }
+        consumer1.errorCallback = { error in
+            print("\(error)")
+            switch error {
+            case PostHandlerErrors.networkError:
+                postsExpectation.fulfill()
+            default:
+                XCTFail("The error is not what is expected")
+            }
+        }
+        consumer1.getMorePosts()
+        waitForExpectations(timeout: 1)
+
+    }
 
 }
