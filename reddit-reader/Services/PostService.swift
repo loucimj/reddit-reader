@@ -8,8 +8,35 @@
 
 import Foundation
 
+public enum PostServiceErrors: Error {
+    case serviceReturnedEmtpyData
+}
+extension PostServiceErrors: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .serviceReturnedEmtpyData:
+            return NSLocalizedString("The reddit service returned empty data", comment: "PostService error")
+        }
+    }
+}
+
 class PostService {
-    func getPosts(successCallback: (Data)->(), errorCallback:(Error)->()) {
-        
+    private var client: HTTPClient
+    init(client: HTTPClient = HTTPClient()) {
+        self.client = client
+    }
+    func getPosts(completionClosure: @escaping HTTPClient.completionClosure) {
+        guard let url = URL(string: ApplicationData.redditURLString) else { return }
+        client.get(url: url) { data , error in
+            guard error == nil else {
+                completionClosure(nil, error)
+                return
+            }
+            guard let data = data else {
+                completionClosure(nil, PostServiceErrors.serviceReturnedEmtpyData)
+                return
+            }
+            completionClosure(data, nil)
+        }
     }
 }

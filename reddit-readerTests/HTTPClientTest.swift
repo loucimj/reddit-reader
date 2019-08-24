@@ -17,8 +17,11 @@ class MockURLSessionDataTask: URLSessionDataTask  {
 
 class MockURLSession: URLSessionProtocol {
     private (set) var lastURL: URL?
+    var mockedData: Data?
+    var mockedError: Error?
     func dataTask(with request: URLRequest, completionHandler: @escaping MockURLSession.DataTaskResult) -> URLSessionDataTaskProtocol {
         lastURL = request.url
+        completionHandler(mockedData, nil, mockedError)
         return MockURLSessionDataTask()
     }
 }

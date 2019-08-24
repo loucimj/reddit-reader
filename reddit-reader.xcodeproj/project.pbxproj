@@ -19,6 +19,8 @@
 		417B2017231161B8009FF015 /* HTTPClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FDF230F5393009FF015 /* HTTPClientTest.swift */; };
 		417B201A2311798E009FF015 /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20192311798E009FF015 /* DebugPrint.swift */; };
 		417B201B231179A0009FF015 /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20192311798E009FF015 /* DebugPrint.swift */; };
+		417B201D23117AAF009FF015 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B201C23117AAF009FF015 /* ApplicationData.swift */; };
+		417B202023117D26009FF015 /* PostServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B201E23117CF0009FF015 /* PostServiceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		417B200F231161B1009FF015 /* RedditReaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditReaderTests.swift; sourceTree = "<group>"; };
 		417B2011231161B1009FF015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		417B20192311798E009FF015 /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
+		417B201C23117AAF009FF015 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
+		417B201E23117CF0009FF015 /* PostServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostServiceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				417B1FDF230F5393009FF015 /* HTTPClientTest.swift */,
+				417B201E23117CF0009FF015 /* PostServiceTest.swift */,
 				417B1FE1230F5393009FF015 /* Info.plist */,
 			);
 			path = "reddit-readerTests";
@@ -149,6 +154,7 @@
 		417B1FEE230F5762009FF015 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				417B201C23117AAF009FF015 /* ApplicationData.swift */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -274,6 +280,7 @@
 				417B20002311613A009FF015 /* PostService.swift in Sources */,
 				417B1FCD230F5391009FF015 /* DetailViewController.swift in Sources */,
 				417B1FCB230F5391009FF015 /* MasterViewController.swift in Sources */,
+				417B201D23117AAF009FF015 /* ApplicationData.swift in Sources */,
 				417B1FFF2311613A009FF015 /* HTTPClient.swift in Sources */,
 				417B1FC9230F5391009FF015 /* AppDelegate.swift in Sources */,
 				417B201A2311798E009FF015 /* DebugPrint.swift in Sources */,
@@ -287,6 +294,7 @@
 				417B2017231161B8009FF015 /* HTTPClientTest.swift in Sources */,
 				417B2010231161B1009FF015 /* RedditReaderTests.swift in Sources */,
 				417B201B231179A0009FF015 /* DebugPrint.swift in Sources */,
+				417B202023117D26009FF015 /* PostServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
