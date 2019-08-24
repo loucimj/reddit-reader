@@ -21,6 +21,9 @@
 		417B201B231179A0009FF015 /* DebugPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20192311798E009FF015 /* DebugPrint.swift */; };
 		417B201D23117AAF009FF015 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B201C23117AAF009FF015 /* ApplicationData.swift */; };
 		417B202023117D26009FF015 /* PostServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B201E23117CF0009FF015 /* PostServiceTest.swift */; };
+		417B202223118682009FF015 /* PostsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202123118682009FF015 /* PostsHandler.swift */; };
+		417B2024231186AE009FF015 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B2023231186AE009FF015 /* Post.swift */; };
+		417B202623118AEC009FF015 /* PostsHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202523118AEC009FF015 /* PostsHandlerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		417B20192311798E009FF015 /* DebugPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugPrint.swift; sourceTree = "<group>"; };
 		417B201C23117AAF009FF015 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		417B201E23117CF0009FF015 /* PostServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostServiceTest.swift; sourceTree = "<group>"; };
+		417B202123118682009FF015 /* PostsHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsHandler.swift; sourceTree = "<group>"; };
+		417B2023231186AE009FF015 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		417B202523118AEC009FF015 /* PostsHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsHandlerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 				417B1FDF230F5393009FF015 /* HTTPClientTest.swift */,
 				417B201E23117CF0009FF015 /* PostServiceTest.swift */,
 				417B1FE1230F5393009FF015 /* Info.plist */,
+				417B202523118AEC009FF015 /* PostsHandlerTests.swift */,
 			);
 			path = "reddit-readerTests";
 			sourceTree = "<group>";
@@ -121,6 +128,7 @@
 		417B1FEA230F5615009FF015 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				417B2023231186AE009FF015 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -154,6 +162,7 @@
 		417B1FEE230F5762009FF015 /* BusinessLogic */ = {
 			isa = PBXGroup;
 			children = (
+				417B202123118682009FF015 /* PostsHandler.swift */,
 				417B201C23117AAF009FF015 /* ApplicationData.swift */,
 			);
 			path = BusinessLogic;
@@ -281,7 +290,9 @@
 				417B1FCD230F5391009FF015 /* DetailViewController.swift in Sources */,
 				417B1FCB230F5391009FF015 /* MasterViewController.swift in Sources */,
 				417B201D23117AAF009FF015 /* ApplicationData.swift in Sources */,
+				417B202223118682009FF015 /* PostsHandler.swift in Sources */,
 				417B1FFF2311613A009FF015 /* HTTPClient.swift in Sources */,
+				417B2024231186AE009FF015 /* Post.swift in Sources */,
 				417B1FC9230F5391009FF015 /* AppDelegate.swift in Sources */,
 				417B201A2311798E009FF015 /* DebugPrint.swift in Sources */,
 			);
@@ -294,6 +305,7 @@
 				417B2017231161B8009FF015 /* HTTPClientTest.swift in Sources */,
 				417B2010231161B1009FF015 /* RedditReaderTests.swift in Sources */,
 				417B201B231179A0009FF015 /* DebugPrint.swift in Sources */,
+				417B202623118AEC009FF015 /* PostsHandlerTests.swift in Sources */,
 				417B202023117D26009FF015 /* PostServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,4 +11,5 @@ import Foundation
 class ApplicationData {
     static let redditURLString: String = "https://www.reddit.com/top/.json?count=50"
     static var shared = ApplicationData()
+    var posts: [Post]?
 }

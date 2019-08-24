@@ -18,4 +18,15 @@ struct Post: Codable {
     var thumbnailURL: URL? {
         return URL(string: thumbnail)
     }
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case title = "title"
+        case author = "author"
+        case commentsQuantity = "num_comments"
+        case creationDateUTC = "created_utc"
+        case thumbnail = "thumbnail"
+    }
+    init(dictionary: [String: Any]) throws {
+        self = try JSONDecoder().decode(Post.self, from: JSONSerialization.data(withJSONObject: dictionary))
+    }
 }
