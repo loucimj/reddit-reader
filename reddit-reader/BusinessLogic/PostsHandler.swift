@@ -104,7 +104,9 @@ extension PostsHandler {
         ApplicationData.shared.markPostAsRead(post: post)
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            self.didMarkPostAsRead(post: post)
+            var newPost = post
+            newPost.isRead = true
+            self.didMarkPostAsRead(post: newPost)
         }
     }
     func removePost(post: Post) {

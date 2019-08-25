@@ -38,8 +38,8 @@ class MasterViewController: UITableViewController {
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
+//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+//        navigationItem.rightBarButtonItem = addButton
     }
     func setupSplitViews() {
         if let split = splitViewController {
@@ -90,7 +90,10 @@ class MasterViewController: UITableViewController {
             postCell.configure(with: posts[indexPath.row])
         }
     }
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        markPostAsRead(post: posts[indexPath.row])
+        performSegue(withIdentifier: "showDetail", sender: self)
+    }
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
@@ -119,6 +122,11 @@ extension MasterViewController: PostsHandler {
         #warning("Create AlertHandler protocol to show an error")
         print(error.localizedDescription)
     }
-    
+    func didMarkPostAsRead(post: Post) {
+        if let index = posts.firstIndex(of: post) {
+            posts[index] = post
+            tableView.reloadData()
+        }
+    }
     
 }

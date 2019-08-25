@@ -32,6 +32,7 @@ class PostTableViewCell: UITableViewCell {
         unreadIndicatorView.layer.cornerRadius = unreadIndicatorView.bounds.height/2
         unreadIndicatorView.layer.masksToBounds = true
         unreadIndicatorView.backgroundColor = UIColor.unreadColor
+        unreadIndicatorView.isHidden = post.isRead
         authorLabel.text = post.author
         timeAgoLabel.text = post.timeAgo
         commentsLabel.text = post.commentsText
