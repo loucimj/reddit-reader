@@ -16,6 +16,8 @@ class MockPostsConsumer: PostsHandler {
     var errorCallback: ((Error)->())?
     var readPostCallback: ((Post)->())?
     var removePostCallback: ((Post)->())?
+    var didRemoveAllPostsCallback: (()->())?
+    
     func didReceive(posts: [Post]) {
         successCallback?(posts)
     }
@@ -31,7 +33,9 @@ class MockPostsConsumer: PostsHandler {
     func didRemove(post: Post) {
         removePostCallback?(post)
     }
-    
+    func didRemoveAllPosts() {
+        didRemoveAllPostsCallback?()
+    }
 }
 
 class PostsHandlerTests: XCTestCase {
@@ -333,5 +337,53 @@ class PostsHandlerTests: XCTestCase {
         consumer1.getMorePosts()
         waitForExpectations(timeout: 1)
 
+    }
+    func test_removeAllPosts() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.localDatabase.removedIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        let service = PostService(client: httpClient)
+        consumer1.postService = service
+        consumer1.errorCallback = { error in
+            XCTFail("Service should not throw an error")
+        }
+        consumer1.didRemoveAllPostsCallback = {
+            XCTAssert(ApplicationData.shared.localDatabase.posts.isEmpty, "The database should be empty")
+            postsExpectation.fulfill()
+        }
+        consumer1.removeAllPosts()
+        waitForExpectations(timeout: 1)
+    }
+    func test_removeAllPostsAndFetchAgain() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.localDatabase.removedIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        let service = PostService(client: httpClient)
+        consumer1.postService = service
+        session.mockedData = mockedData
+        consumer1.errorCallback = { error in
+            XCTFail("Service should not throw an error")
+        }
+        consumer1.didRemoveAllPostsCallback = {
+            self.consumer1.getMorePosts()
+        }
+        consumer1.successCallback = { posts in
+            XCTAssert(posts.isEmpty, "The database should be empty")
+            postsExpectation.fulfill()
+        }
+        consumer1.removeAllPosts()
+        waitForExpectations(timeout: 1)
     }
 }

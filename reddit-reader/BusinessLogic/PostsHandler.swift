@@ -34,12 +34,15 @@ protocol PostsHandler: class {
     func didReceive(posts: [Post])
     func didMarkPostAsRead(post: Post)
     func didRemove(post: Post)
+    func didRemoveAllPosts()
     func postHandlerHasAnError(error: Error)
 }
 
 extension PostsHandler {
     func didMarkPostAsRead(post: Post) {}
     func didRemove(post: Post) {}
+    func didRemoveAllPosts() {}
+    
     func getMorePosts() {
         guard let service = postService else {
             postHandlerHasAnError(error: PostHandlerErrors.noServiceIsProvided)
@@ -100,5 +103,9 @@ extension PostsHandler {
     func removePost(post: Post) {
         ApplicationData.shared.removePost(post: post)
         didRemove(post: post)
+    }
+    func removeAllPosts() {
+        ApplicationData.shared.removeAllPosts()
+        didRemoveAllPosts()
     }
 }

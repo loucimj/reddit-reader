@@ -32,6 +32,12 @@ class ApplicationData {
         self.localDatabase.removedIds.insert(post.id)
         saveLocalDatabaseToFilesystem()
     }
+    func removeAllPosts() {
+        self.localDatabase.removedIds = self.localDatabase.removedIds.union(self.localDatabase.posts.map({ $0.id }))
+        self.localDatabase.posts.removeAll()
+        self.localDatabase.readIds.removeAll()
+        saveLocalDatabaseToFilesystem()
+    }
     
     private func saveLocalDatabaseToFilesystem() {
         self.filesystemQueue.sync { [weak self] in
