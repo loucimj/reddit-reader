@@ -11,8 +11,9 @@ import Foundation
 class ApplicationData {
     static let redditURLString: String = "https://www.reddit.com/top/.json?count=50"
     static var shared = ApplicationData()
-    var localDatabase = LocalDatabase(posts: Set<Post>(), readIds: [], removedIds: [])
-    
+    internal var localDatabase = LocalDatabase(posts: Set<Post>(), readIds: [], removedIds: [])
+    private var filesystemQueue: DispatchQueue = DispatchQueue(label: "fileSystemQueue")
+
     func initDatabase() {
         readLocalDatabaseFromFilesystem()
     }
@@ -31,7 +32,6 @@ class ApplicationData {
         self.localDatabase.removedIds.insert(post.id)
         saveLocalDatabaseToFilesystem()
     }
-    private var filesystemQueue: DispatchQueue = DispatchQueue(label: "fileSystemQueue")
     
     private func saveLocalDatabaseToFilesystem() {
         self.filesystemQueue.sync { [weak self] in
