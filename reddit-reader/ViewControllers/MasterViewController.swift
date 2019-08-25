@@ -16,21 +16,36 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        navigationItem.leftBarButtonItem = editButtonItem
-
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-        navigationItem.rightBarButtonItem = addButton
-        if let split = splitViewController {
-            let controllers = split.viewControllers
-            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        }
+        setupViews()
+        setupNavigationBar()
+        setupSplitViews()
+        
         getMorePosts()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+    }
+
+    // MARK : - Functions
+    func setupViews() {
+        tableView.separatorStyle = .none
+        tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil), forCellReuseIdentifier: "PostTableViewCell")
+//        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
+    }
+    func setupNavigationBar() {
+        // Do any additional setup after loading the view.
+        navigationItem.leftBarButtonItem = editButtonItem
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
+        navigationItem.rightBarButtonItem = addButton
+    }
+    func setupSplitViews() {
+        if let split = splitViewController {
+            let controllers = split.viewControllers
+            detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+        }
     }
 
     @objc
@@ -54,7 +69,9 @@ class MasterViewController: UITableViewController {
     }
 
     // MARK: - Table View
-
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -64,11 +81,14 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell")!
 
-        let object = posts[indexPath.row]
-        cell.textLabel!.text = object.description
         return cell
+    }
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let postCell = cell as? PostTableViewCell {
+            postCell.configure(with: posts[indexPath.row])
+        }
     }
 
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

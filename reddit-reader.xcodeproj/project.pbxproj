@@ -28,6 +28,9 @@
 		417B202A2311D0CE009FF015 /* PostsMother.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20292311D0CE009FF015 /* PostsMother.swift */; };
 		417B202C2311E0D3009FF015 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202B2311E0D3009FF015 /* Storable.swift */; };
 		417B202E2311E12B009FF015 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202D2311E12B009FF015 /* LocalDatabase.swift */; };
+		417B20312312B60C009FF015 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B202F2312B60C009FF015 /* PostTableViewCell.swift */; };
+		417B20322312B60C009FF015 /* PostTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 417B20302312B60C009FF015 /* PostTableViewCell.xib */; };
+		417B20342313321E009FF015 /* UIColor+Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B20332313321E009FF015 /* UIColor+Palette.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,9 @@
 		417B20292311D0CE009FF015 /* PostsMother.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsMother.swift; sourceTree = "<group>"; };
 		417B202B2311E0D3009FF015 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
 		417B202D2311E12B009FF015 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		417B202F2312B60C009FF015 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		417B20302312B60C009FF015 /* PostTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostTableViewCell.xib; sourceTree = "<group>"; };
+		417B20332313321E009FF015 /* UIColor+Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Palette.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +172,8 @@
 		417B1FED230F5754009FF015 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				417B202F2312B60C009FF015 /* PostTableViewCell.swift */,
+				417B20302312B60C009FF015 /* PostTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -193,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				417B20192311798E009FF015 /* DebugPrint.swift */,
+				417B20332313321E009FF015 /* UIColor+Palette.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -281,6 +290,7 @@
 				417B1FD5230F5393009FF015 /* LaunchScreen.storyboard in Resources */,
 				417B1FD2230F5393009FF015 /* Assets.xcassets in Resources */,
 				417B1FD0230F5391009FF015 /* Main.storyboard in Resources */,
+				417B20322312B60C009FF015 /* PostTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				417B20002311613A009FF015 /* PostService.swift in Sources */,
+				417B20342313321E009FF015 /* UIColor+Palette.swift in Sources */,
 				417B1FCD230F5391009FF015 /* DetailViewController.swift in Sources */,
 				417B1FCB230F5391009FF015 /* MasterViewController.swift in Sources */,
 				417B201D23117AAF009FF015 /* ApplicationData.swift in Sources */,
@@ -309,6 +320,7 @@
 				417B2024231186AE009FF015 /* Post.swift in Sources */,
 				417B1FC9230F5391009FF015 /* AppDelegate.swift in Sources */,
 				417B201A2311798E009FF015 /* DebugPrint.swift in Sources */,
+				417B20312312B60C009FF015 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

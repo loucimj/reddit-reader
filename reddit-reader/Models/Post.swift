@@ -19,6 +19,19 @@ struct Post: Codable, Hashable {
     var thumbnailURL: URL? {
         return URL(string: thumbnail)
     }
+    var timeAgo: String {
+        return "10 min ago"
+    }
+    var commentsText: String {
+        switch commentsQuantity {
+        case 0:
+            return "no comments"
+        case 1:
+            return "1 comment"
+        default:
+            return "\(commentsQuantity) comments"
+        }
+    }
     private enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
