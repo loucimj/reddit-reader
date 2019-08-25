@@ -70,8 +70,9 @@ extension PostsHandler {
                     do {
                         if let dataDictionary = item["data"] as? [String: Any] {
                             let post = try Post(dictionary: dataDictionary)
-                            print("\(post)")
-                            posts.append(post)
+                            if !ApplicationData.shared.localDatabase.removedIds.contains(post.id) {
+                                posts.append(post)
+                            }
                         }
                     } catch {
                         print("\(error)")

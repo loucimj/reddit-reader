@@ -14,7 +14,7 @@ class PostsMother {
     class func defaultPost() throws -> Post {
         return try JSONDecoder().decode(Post.self, from: Data("""
             {
-                "id": "a1",
+                "id": "2hqlxp",
                 "title": "title",
                 "author" : "author",
                 "num_comments": 4,
@@ -26,7 +26,7 @@ class PostsMother {
     class func secondPost() throws -> Post {
         return try JSONDecoder().decode(Post.self, from: Data("""
             {
-                "id": "a2",
+                "id": "2hozly",
                 "title": "title",
                 "author" : "author",
                 "num_comments": 4,

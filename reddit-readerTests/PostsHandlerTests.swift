@@ -40,24 +40,7 @@ class PostsHandlerTests: XCTestCase {
     var consumer1 = MockPostsConsumer()
     var post: Post?
     var secondPost: Post?
-    override func setUp() {
-        super.setUp()
-        httpClient = HTTPClient(session: session)
-        do {
-            post = try PostsMother.defaultPost()
-            secondPost = try PostsMother.secondPost()
-        } catch {
-            
-        }
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-
-    func test_parsesDataProperly() {
-        session.mockedData = Data("""
+    var mockedData = Data("""
             {
                 "kind": "Listing",
                 "data": {
@@ -165,6 +148,24 @@ class PostsHandlerTests: XCTestCase {
                 }
             }
         """.utf8)
+    override func setUp() {
+        super.setUp()
+        httpClient = HTTPClient(session: session)
+        do {
+            post = try PostsMother.defaultPost()
+            secondPost = try PostsMother.secondPost()
+        } catch {
+            
+        }
+    }
+
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        super.tearDown()
+    }
+
+    func test_parsesDataProperly() {
+        session.mockedData = mockedData
         let postsExpectation = expectation(description: "PostsHandler expectation")
 
         session.mockedError = nil
@@ -305,5 +306,32 @@ class PostsHandlerTests: XCTestCase {
         }
         consumer1.removePost(post:secondPost)
         waitForExpectations(timeout: 1)
+    }
+    func test_removePostAndAdditLaterAgain() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        session.mockedData = mockedData
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.localDatabase.removedIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        ApplicationData.shared.removePost(post: post)
+        ApplicationData.shared.removePost(post: secondPost)
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        let service = PostService(client: httpClient)
+        consumer1.postService = service
+        consumer1.successCallback = { posts in
+            XCTAssert(posts.contains(post) == false, "The post was removed and should not be returned again")
+            XCTAssert(posts.contains(secondPost) == false, "The secondPost was removed and should not be returned again")
+            postsExpectation.fulfill()
+        }
+        consumer1.errorCallback = { error in
+            XCTFail("Service should not throw an error")
+        }
+        consumer1.getMorePosts()
+        waitForExpectations(timeout: 1)
+
     }
 }
