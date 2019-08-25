@@ -94,18 +94,32 @@ extension PostsHandler {
             newPost.isRead = ApplicationData.shared.localDatabase.readIds.contains(post.id)
             return newPost
         })
-        didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
+        }
+        
     }
     func markPostAsRead(post: Post) {
         ApplicationData.shared.markPostAsRead(post: post)
-        didMarkPostAsRead(post: post)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.didMarkPostAsRead(post: post)
+        }
     }
     func removePost(post: Post) {
         ApplicationData.shared.removePost(post: post)
-        didRemove(post: post)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.didRemove(post: post)
+        }
+        
     }
     func removeAllPosts() {
         ApplicationData.shared.removeAllPosts()
-        didRemoveAllPosts()
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.didRemoveAllPosts()
+        }
     }
 }

@@ -36,3 +36,8 @@ extension Post: Equatable {
         return lhs.id == rhs.id
     }
 }
+extension Post: CustomStringConvertible {
+    var description: String {
+        return "[" + id + "] " + title
+    }
+}
