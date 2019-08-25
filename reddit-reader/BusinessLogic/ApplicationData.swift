@@ -25,6 +25,11 @@ class ApplicationData {
         self.localDatabase.readIds.insert(post.id)
         saveLocalDatabaseToFilesystem()
     }
+    func removePost(post: Post) {
+        self.localDatabase.posts.remove(post)
+        self.localDatabase.readIds.remove(post.id)
+        saveLocalDatabaseToFilesystem()
+    }
     private var filesystemQueue: DispatchQueue = DispatchQueue(label: "fileSystemQueue")
     
     private func saveLocalDatabaseToFilesystem() {

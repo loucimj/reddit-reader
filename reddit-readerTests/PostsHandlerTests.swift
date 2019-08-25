@@ -15,7 +15,7 @@ class MockPostsConsumer: PostsHandler {
     var successCallback: (([Post])->())?
     var errorCallback: ((Error)->())?
     var readPostCallback: ((Post)->())?
-    
+    var removePostCallback: ((Post)->())?
     func didReceive(posts: [Post]) {
         successCallback?(posts)
     }
@@ -26,6 +26,10 @@ class MockPostsConsumer: PostsHandler {
     
     func didMarkPostAsRead(post: Post) {
         readPostCallback?(post)
+    }
+    
+    func didRemove(post: Post) {
+        removePostCallback?(post)
     }
     
 }
@@ -281,5 +285,25 @@ class PostsHandlerTests: XCTestCase {
         consumer1.readPosts()
         waitForExpectations(timeout: 1)
     }
-
+    func test_removePost() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.readIds = []
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        let postsExpectation = expectation(description: "PostsHandler expectation")
+        let service = PostService(client: httpClient)
+        consumer1.postService = service
+        consumer1.removePostCallback = { post in
+            XCTAssert(ApplicationData.shared.localDatabase.posts.contains(secondPost) == false, "The post should have been removed")
+            postsExpectation.fulfill()
+        }
+        consumer1.errorCallback = { error in
+            XCTFail("Service should not throw an error")
+        }
+        consumer1.removePost(post:secondPost)
+        waitForExpectations(timeout: 1)
+    }
 }
