@@ -35,6 +35,7 @@ protocol PostsHandler: class {
     func didMarkPostAsRead(post: Post)
     func didRemove(post: Post)
     func didRemoveAllPosts()
+    func didFetchMorePosts()
     func postHandlerHasAnError(error: Error)
 }
 
@@ -42,7 +43,7 @@ extension PostsHandler {
     func didMarkPostAsRead(post: Post) {}
     func didRemove(post: Post) {}
     func didRemoveAllPosts() {}
-    
+    func didFetchMorePosts() {}
     func getMorePosts() {
         guard let service = postService else {
             postHandlerHasAnError(error: PostHandlerErrors.noServiceIsProvided)
@@ -85,7 +86,7 @@ extension PostsHandler {
             } catch {
                 self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
             }
-            self.readPosts()
+            self.didFetchMorePosts()
         }
     }
     func readPosts() {
@@ -96,6 +97,7 @@ extension PostsHandler {
         })
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
+            print("READ! \(posts.count)")
             self.didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
         }
         

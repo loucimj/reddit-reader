@@ -13,19 +13,19 @@ class MasterViewController: UITableViewController {
     var detailViewController: DetailViewController? = nil
     var posts = [Post]()
     var postService: PostService? = PostService()
-
+    var isInitializing: Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupNavigationBar()
         setupSplitViews()
-        
-        getMorePosts()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        readPosts()
     }
 
     // MARK : - Functions
@@ -112,9 +112,19 @@ class MasterViewController: UITableViewController {
 }
 extension MasterViewController: PostsHandler {
     
+    func didFetchMorePosts() {
+        readPosts()
+    }
+    
     func didReceive(posts: [Post]) {
-        #warning("Calculate diff, store posts, and call tableview insertions and deletions")
+        if posts.isEmpty && isInitializing {
+            isInitializing = false
+            getMorePosts()
+            return
+        }
+        isInitializing = false
         self.posts = posts
+        #warning("Calculate diff and call tableview insertions and deletions")
         self.tableView.reloadData()
     }
     
