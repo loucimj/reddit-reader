@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		416AE713231A8E8300A54482 /* PostTableViewCellTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE712231A8E8300A54482 /* PostTableViewCellTests.swift */; };
 		416AE715231A8FD900A54482 /* UIView+NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE714231A8FD900A54482 /* UIView+NibLoadable.swift */; };
+		416AE718231A949200A54482 /* MasterViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE716231A948900A54482 /* MasterViewControllerTests.swift */; };
+		416AE71A231A9DD900A54482 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE719231A9DD900A54482 /* TestUtils.swift */; };
 		417B1FC9230F5391009FF015 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FC8230F5391009FF015 /* AppDelegate.swift */; };
 		417B1FCB230F5391009FF015 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FCA230F5391009FF015 /* MasterViewController.swift */; };
 		417B1FCD230F5391009FF015 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FCC230F5391009FF015 /* DetailViewController.swift */; };
@@ -48,6 +50,8 @@
 /* Begin PBXFileReference section */
 		416AE712231A8E8300A54482 /* PostTableViewCellTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCellTests.swift; sourceTree = "<group>"; };
 		416AE714231A8FD900A54482 /* UIView+NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+NibLoadable.swift"; sourceTree = "<group>"; };
+		416AE716231A948900A54482 /* MasterViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewControllerTests.swift; sourceTree = "<group>"; };
+		416AE719231A9DD900A54482 /* TestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		417B1FC5230F5391009FF015 /* RedditReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417B1FC8230F5391009FF015 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		417B1FCA230F5391009FF015 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 				417B20272311D0B6009FF015 /* ApplicationDataTests.swift */,
 				417B20292311D0CE009FF015 /* PostsMother.swift */,
 				416AE712231A8E8300A54482 /* PostTableViewCellTests.swift */,
+				416AE716231A948900A54482 /* MasterViewControllerTests.swift */,
+				416AE719231A9DD900A54482 /* TestUtils.swift */,
 			);
 			path = "reddit-readerTests";
 			sourceTree = "<group>";
@@ -338,9 +344,11 @@
 				417B20282311D0B6009FF015 /* ApplicationDataTests.swift in Sources */,
 				417B202A2311D0CE009FF015 /* PostsMother.swift in Sources */,
 				417B2017231161B8009FF015 /* HTTPClientTest.swift in Sources */,
+				416AE71A231A9DD900A54482 /* TestUtils.swift in Sources */,
 				416AE713231A8E8300A54482 /* PostTableViewCellTests.swift in Sources */,
 				417B2010231161B1009FF015 /* RedditReaderTests.swift in Sources */,
 				417B201B231179A0009FF015 /* DebugPrint.swift in Sources */,
+				416AE718231A949200A54482 /* MasterViewControllerTests.swift in Sources */,
 				417B202623118AEC009FF015 /* PostsHandlerTests.swift in Sources */,
 				417B202023117D26009FF015 /* PostServiceTest.swift in Sources */,
 			);
