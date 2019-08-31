@@ -48,6 +48,17 @@ class PostTableViewCell: UITableViewCell {
         } else {
             self.postImageView.image = nil
         }
+        updateSelection()
+    }
+    
+    func updateSelection() {
+        if isSelected {
+            let selectionView = UIView()
+            selectionView.backgroundColor = UIColor.selectedRow
+            selectedBackgroundView = selectionView
+        } else {
+            selectedBackgroundView = nil
+        }
     }
     
 }

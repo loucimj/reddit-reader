@@ -39,5 +39,30 @@ class PostTableViewCellTests: XCTestCase {
             return
         }
     }
+    func test_cellIsSelected() {
+        let cell = PostTableViewCell.loadFromNib()
+        do {
+            let post = try PostsMother.defaultPost()
+            cell.isSelected = true
+            cell.configure(with: post)
+            XCTAssert(cell.selectedBackgroundView != nil, "It has a background view")
+            XCTAssert(cell.selectedBackgroundView?.backgroundColor == UIColor.selectedRow, "It has a the selected background color")
+        } catch {
+            XCTFail("Mocked post couldnt be created")
+            return
+        }
+    }
+    func test_cellIsNotSelected() {
+        let cell = PostTableViewCell.loadFromNib()
+        do {
+            let post = try PostsMother.defaultPost()
+            cell.isSelected = false
+            cell.configure(with: post)
+            XCTAssert(cell.selectedBackgroundView?.backgroundColor == nil, "It should not have a background view")
+        } catch {
+            XCTFail("Mocked post couldnt be created")
+            return
+        }
+    }
 
 }

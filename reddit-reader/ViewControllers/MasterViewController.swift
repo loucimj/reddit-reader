@@ -136,7 +136,9 @@ extension MasterViewController: PostsHandler {
     func didMarkPostAsRead(post: Post) {
         if let index = posts.firstIndex(of: post) {
             posts[index] = post
-            tableView.reloadData()
+            if let indexPath = tableView.indexPathForSelectedRow, let cell = tableView.cellForRow(at: indexPath) as? PostTableViewCell {
+                cell.configure(with: post)
+            }
         }
     }
     
