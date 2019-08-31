@@ -10,30 +10,36 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var detailDescriptionLabel: UILabel!
-
-
-    func configureView() {
-        // Update the user interface for the detail item.
-        if let detail = post {
-            if let label = detailDescriptionLabel {
-                label.text = post?.title
-            }
+    @IBOutlet weak var postImageView: UIImageView!
+    
+    var post: Post? {
+        didSet {
+            configureViews()
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        configureView()
+        configureViews()
     }
 
-    var post: Post? {
-        didSet {
-            // Update the view.
-            configureView()
+
+    // MARK: - Functions
+    func configureViews() {
+        guard let post = post else { return }
+        guard detailDescriptionLabel != nil else { return }
+        postImageView.backgroundColor = UIColor.gray
+        postImageView.contentMode = .scaleAspectFill
+        detailDescriptionLabel.text = post.description
+        authorLabel.text = post.author
+        if let url = post.thumbnailURL {
+            postImageView.downloadImageFromUrl(url, defaultImage: nil)
         }
     }
+    
 
 
 }
