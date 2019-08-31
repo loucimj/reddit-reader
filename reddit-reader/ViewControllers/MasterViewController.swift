@@ -11,7 +11,11 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var posts = [Post]()
+    var posts = [Post]() {
+        didSet {
+            self.tableView.tableFooterView = footerView()
+        }
+    }
     var postService: PostService? = PostService()
     var isInitializing: Bool = true
     
@@ -56,13 +60,25 @@ class MasterViewController: UITableViewController {
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
-    
+    func footerView() -> UIView? {
+        guard !self.posts.isEmpty else { return nil }
+        let button = UIButton()
+        button.frame = CGRect(origin: CGPoint.zero, size: CGSize(width: tableView.bounds.width, height: 80))
+        button.backgroundColor = UIColor.mainBackground
+        button.setTitle("Dismiss all", for: .normal)
+        button.setTitleColor(UIColor.highLightedText, for: .normal)
+        button.addTarget(self, action: #selector(didTapDismissAll), for: .touchUpInside)
+        return button
+    }
     // MARK: - User Actions
     @objc
     func didPullToRefresh() {
         getMorePosts()
     }
-
+    @objc
+    func didTapDismissAll() {
+        removeAllPosts()
+    }
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -119,6 +135,10 @@ class MasterViewController: UITableViewController {
 
 }
 extension MasterViewController: PostsHandler {
+    
+    func didRemoveAllPosts() {
+        readPosts()
+    }
     
     func didFetchMorePosts() {
         refreshControl?.endRefreshing()
