@@ -30,6 +30,8 @@ class MasterViewController: UITableViewController {
 
     // MARK : - Functions
     func setupViews() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(didPullToRefresh), for: .valueChanged)
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil), forCellReuseIdentifier: "PostTableViewCell")
     }
@@ -48,12 +50,17 @@ class MasterViewController: UITableViewController {
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
     }
-
     @objc
     func insertNewObject(_ sender: Any) {
 //        posts.insert(, at: 0)
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
+    }
+    
+    // MARK: - User Actions
+    @objc
+    func didPullToRefresh() {
+        getMorePosts()
     }
 
     // MARK: - Segues
@@ -114,6 +121,7 @@ class MasterViewController: UITableViewController {
 extension MasterViewController: PostsHandler {
     
     func didFetchMorePosts() {
+        refreshControl?.endRefreshing()
         readPosts()
     }
     

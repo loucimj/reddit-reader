@@ -19,7 +19,11 @@ class ApplicationData {
     }
     
     func addMorePosts(posts: [Post]) {
-        self.localDatabase.posts = self.localDatabase.posts.union(posts)
+        for post in posts {
+            if !self.localDatabase.posts.contains(post) {
+                self.localDatabase.posts.insert(post)
+            }
+        }
         saveLocalDatabaseToFilesystem()
     }
     func markPostAsRead(post: Post) {

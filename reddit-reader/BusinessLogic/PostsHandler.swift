@@ -86,7 +86,9 @@ extension PostsHandler {
             } catch {
                 self.postHandlerHasAnError(error: PostHandlerErrors.serviceResponseIsNotParseable)
             }
-            self.didFetchMorePosts()
+            DispatchQueue.main.async {
+                self.didFetchMorePosts()
+            }
         }
     }
     func readPosts() {
