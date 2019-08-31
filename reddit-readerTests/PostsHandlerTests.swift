@@ -17,7 +17,8 @@ class MockPostsConsumer: PostsHandler {
     var readPostCallback: ((Post)->())?
     var removePostCallback: ((Post)->())?
     var didRemoveAllPostsCallback: (()->())?
-    
+    var didFetchMorePostsCallback: (()->())?
+
     func didReceive(posts: [Post]) {
         successCallback?(posts)
     }
@@ -28,6 +29,9 @@ class MockPostsConsumer: PostsHandler {
     
     func didMarkPostAsRead(post: Post) {
         readPostCallback?(post)
+    }
+    func didFetchMorePosts() {
+        didFetchMorePostsCallback?()
     }
     
     func didRemove(post: Post) {
@@ -155,6 +159,7 @@ class PostsHandlerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         httpClient = HTTPClient(session: session)
+        ApplicationData.shared.localDatabase.removedIds.removeAll()
         do {
             post = try PostsMother.defaultPost()
             secondPost = try PostsMother.secondPost()
@@ -169,12 +174,15 @@ class PostsHandlerTests: XCTestCase {
     }
 
     func test_parsesDataProperly() {
-        session.mockedData = mockedData
         let postsExpectation = expectation(description: "PostsHandler expectation")
 
+        session.mockedData = mockedData
         session.mockedError = nil
         let service = PostService(client: httpClient)
         consumer1.postService = service
+        consumer1.didFetchMorePostsCallback = {
+            self.consumer1.readPosts()
+        }
         consumer1.successCallback = { posts in
             guard !posts.isEmpty else {
                 XCTFail("posts collection is empty")
@@ -334,7 +342,7 @@ class PostsHandlerTests: XCTestCase {
         consumer1.errorCallback = { error in
             XCTFail("Service should not throw an error")
         }
-        consumer1.getMorePosts()
+        consumer1.readPosts()
         waitForExpectations(timeout: 1)
 
     }
@@ -377,7 +385,7 @@ class PostsHandlerTests: XCTestCase {
             XCTFail("Service should not throw an error")
         }
         consumer1.didRemoveAllPostsCallback = {
-            self.consumer1.getMorePosts()
+            self.consumer1.readPosts()
         }
         consumer1.successCallback = { posts in
             XCTAssert(posts.isEmpty, "The database should be empty")
