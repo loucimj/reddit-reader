@@ -20,7 +20,7 @@ struct Post: Codable, Hashable {
         return URL(string: thumbnail)
     }
     var timeAgo: String {
-        return "10 min ago"
+        return Date(timeIntervalSince1970: creationDateUTC).timeAgo
     }
     var commentsText: String {
         switch commentsQuantity {

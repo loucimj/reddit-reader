@@ -156,7 +156,6 @@ extension MasterViewController: PostsHandler {
         self.posts = posts
         //here I would use IGListKit or DifferenceKit but for the sake of doing this without any library I'll go with a local implementation
         self.tableView.reloadData(with: compare(oldValues: oldPosts, newValues: posts))
-//        self.tableView.reloadData()
     }
     
     func postHandlerHasAnError(error: Error) {

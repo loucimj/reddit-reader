@@ -100,7 +100,7 @@ extension PostsHandler {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             print("READ! \(posts.count)")
-            self.didReceive(posts: posts.sorted(by: { $0.creationDateUTC < $1.creationDateUTC }))
+            self.didReceive(posts: posts.sorted(by: { $0.creationDateUTC > $1.creationDateUTC }))
         }
         
     }
