@@ -20,7 +20,7 @@ class ApplicationData {
     
     func addMorePosts(posts: [Post]) {
         for post in posts {
-            if !self.localDatabase.posts.contains(post) {
+            if !self.localDatabase.posts.contains(post) && !self.localDatabase.removedIds.contains(post.id) {
                 self.localDatabase.posts.insert(post)
             }
         }

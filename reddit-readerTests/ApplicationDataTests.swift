@@ -56,6 +56,19 @@ class ApplicationDataTests: XCTestCase {
         ApplicationData.shared.addMorePosts(posts: [post])
         XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 2, "There should be two posts")
     }
+    func test_addPostThatWasDeleted() {
+        guard let post = self.post, let secondPost = secondPost else {
+            XCTFail("couldnt initialize post data")
+            return
+        }
+        ApplicationData.shared.localDatabase.removedIds = []
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.addMorePosts(posts: [post])
+        ApplicationData.shared.addMorePosts(posts: [secondPost])
+        ApplicationData.shared.removePost(post: post)
+        ApplicationData.shared.addMorePosts(posts: [post])
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 1, "There should be only one post")
+    }
     func test_databaseInitialization() {
         guard let post = self.post, let secondPost = secondPost else {
             XCTFail("couldnt initialize post data")
