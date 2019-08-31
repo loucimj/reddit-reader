@@ -32,14 +32,15 @@ class MasterViewController: UITableViewController {
     func setupViews() {
         tableView.separatorStyle = .none
         tableView.register(UINib(nibName: "PostTableViewCell", bundle: nil), forCellReuseIdentifier: "PostTableViewCell")
-//        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: "PostTableViewCell")
     }
     func setupNavigationBar() {
         // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
-        
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
-//        navigationItem.rightBarButtonItem = addButton
+        self.navigationController?.navigationBar.tintColor = UIColor.highLightedText
+        self.navigationController?.navigationBar.backgroundColor = UIColor.mainBackground
+        self.navigationController?.navigationBar.barTintColor = UIColor.mainBackground
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.mainText]
+        self.navigationItem.title = "Reddit Top Posts"
     }
     func setupSplitViews() {
         if let split = splitViewController {

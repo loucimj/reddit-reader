@@ -31,12 +31,17 @@ class PostTableViewCell: UITableViewCell {
     func configure(with post: Post) {
         unreadIndicatorView.layer.cornerRadius = unreadIndicatorView.bounds.height/2
         unreadIndicatorView.layer.masksToBounds = true
-        unreadIndicatorView.backgroundColor = UIColor.unreadColor
+        unreadIndicatorView.backgroundColor = UIColor.unread
         unreadIndicatorView.isHidden = post.isRead
         authorLabel.text = post.author
         timeAgoLabel.text = post.timeAgo
         commentsLabel.text = post.commentsText
         titleLabel.text = post.title
+        backgroundColor = UIColor.mainBackground
+        authorLabel.textColor = UIColor.mainText
+        timeAgoLabel.textColor = UIColor.mainText
+        commentsLabel.textColor = UIColor.highLightedText
+        titleLabel.textColor = UIColor.mainText
     }
     
 }
