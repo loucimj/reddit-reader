@@ -8,6 +8,12 @@
 
 import XCTest
 
+@testable import RedditReader
+
+extension PostTableViewCell: NibLoadable {
+    
+}
+
 class PostTableViewCellTests: XCTestCase {
 
     override func setUp() {
@@ -17,16 +23,20 @@ class PostTableViewCellTests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func test_allFieldsAreRenderedProperly() {
+        let cell = PostTableViewCell.loadFromNib()
+        do {
+            let post = try PostsMother.defaultPost()
+            cell.configure(with: post)
+            XCTAssert(cell.authorLabel.text == post.author, "Author should be present")
+            XCTAssert(cell.commentsLabel.text == post.commentsText, "Comments should be present")
+            XCTAssert(cell.timeAgoLabel.text == post.timeAgo, "time ago should be present")
+            XCTAssert(cell.titleLabel.text == post.title, "title should be present")
+            XCTAssert(cell.unreadIndicatorView.isHidden == post.isRead, "uread indicator should be present only if post is unread")
+        } catch {
+            XCTFail("Mocked post couldnt be created")
+            return
         }
     }
 
