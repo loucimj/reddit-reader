@@ -42,6 +42,12 @@ class PostTableViewCell: UITableViewCell {
         timeAgoLabel.textColor = UIColor.mainText
         commentsLabel.textColor = UIColor.highLightedText
         titleLabel.textColor = UIColor.mainText
+
+        if let url = post.thumbnailURL {
+            self.postImageView.downloadImageFromUrl(url, defaultImage: nil)
+        } else {
+            self.postImageView.image = nil
+        }
     }
     
 }
