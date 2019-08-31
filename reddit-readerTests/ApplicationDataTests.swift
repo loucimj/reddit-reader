@@ -74,12 +74,24 @@ class ApplicationDataTests: XCTestCase {
             XCTFail("couldnt initialize post data")
             return
         }
-        ApplicationData.shared.localDatabase.posts = []
-        ApplicationData.shared.initDatabase()
+        resetDatabase()
         ApplicationData.shared.addMorePosts(posts: [post, secondPost])
-        ApplicationData.shared.localDatabase.posts = []
+        resetDatabase()
         XCTAssertEqual(ApplicationData.shared.localDatabase.posts.isEmpty, true, "The database should be empty")
         ApplicationData.shared.initDatabase()
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
         XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 2, "There should be two posts")
+        ApplicationData.shared.removePost(post: secondPost)
+        resetDatabase()
+        ApplicationData.shared.initDatabase()
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 1, "There should be only one post")
+        resetDatabase()
+        ApplicationData.shared.initDatabase()
+        ApplicationData.shared.addMorePosts(posts: [post, secondPost])
+        XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 1, "There should be only one post")
+    }
+    func resetDatabase() {
+        ApplicationData.shared.localDatabase.posts = []
+        ApplicationData.shared.localDatabase.removedIds = []
     }
 }

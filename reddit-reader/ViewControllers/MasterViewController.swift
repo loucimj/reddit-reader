@@ -152,9 +152,11 @@ extension MasterViewController: PostsHandler {
             return
         }
         isInitializing = false
+        let oldPosts = self.posts
         self.posts = posts
-        #warning("Calculate diff and call tableview insertions and deletions")
-        self.tableView.reloadData()
+        //here I would use IGListKit or DifferenceKit but for the sake of doing this without any library I'll go with a local implementation
+        self.tableView.reloadData(with: compare(oldValues: oldPosts, newValues: posts))
+//        self.tableView.reloadData()
     }
     
     func postHandlerHasAnError(error: Error) {
