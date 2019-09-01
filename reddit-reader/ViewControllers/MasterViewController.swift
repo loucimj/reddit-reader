@@ -134,7 +134,7 @@ class MasterViewController: UITableViewController {
 
 
 }
-extension MasterViewController: PostsHandler {
+extension MasterViewController: PostsHandler, Alertable {
     
     func didRemoveAllPosts() {
         readPosts()
@@ -159,8 +159,7 @@ extension MasterViewController: PostsHandler {
     }
     
     func postHandlerHasAnError(error: Error) {
-        #warning("Create AlertHandler protocol to show an error")
-        print(error.localizedDescription)
+        showMessage(title: "Error", message: error.localizedDescription)
     }
     func didMarkPostAsRead(post: Post) {
         if let index = posts.firstIndex(of: post) {

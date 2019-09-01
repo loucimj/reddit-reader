@@ -15,6 +15,8 @@
 		416AE71E231AC4E400A54482 /* DetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE71D231AC4E400A54482 /* DetailViewControllerTests.swift */; };
 		416AE720231B350C00A54482 /* UITableView+BatchUpdates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE71F231B350C00A54482 /* UITableView+BatchUpdates.swift */; };
 		416AE722231B3B6400A54482 /* Date+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE721231B3B6400A54482 /* Date+TimeInterval.swift */; };
+		416AE724231B42B100A54482 /* PhotoSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE723231B42B100A54482 /* PhotoSaver.swift */; };
+		416AE726231B442100A54482 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416AE725231B442100A54482 /* Alertable.swift */; };
 		417B1FC9230F5391009FF015 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FC8230F5391009FF015 /* AppDelegate.swift */; };
 		417B1FCB230F5391009FF015 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FCA230F5391009FF015 /* MasterViewController.swift */; };
 		417B1FCD230F5391009FF015 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417B1FCC230F5391009FF015 /* DetailViewController.swift */; };
@@ -60,6 +62,8 @@
 		416AE71D231AC4E400A54482 /* DetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerTests.swift; sourceTree = "<group>"; };
 		416AE71F231B350C00A54482 /* UITableView+BatchUpdates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+BatchUpdates.swift"; sourceTree = "<group>"; };
 		416AE721231B3B6400A54482 /* Date+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeInterval.swift"; sourceTree = "<group>"; };
+		416AE723231B42B100A54482 /* PhotoSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSaver.swift; sourceTree = "<group>"; };
+		416AE725231B442100A54482 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 		417B1FC5230F5391009FF015 /* RedditReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedditReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		417B1FC8230F5391009FF015 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		417B1FCA230F5391009FF015 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -204,6 +208,8 @@
 				417B202123118682009FF015 /* PostsHandler.swift */,
 				417B201C23117AAF009FF015 /* ApplicationData.swift */,
 				417B202B2311E0D3009FF015 /* Storable.swift */,
+				416AE723231B42B100A54482 /* PhotoSaver.swift */,
+				416AE725231B442100A54482 /* Alertable.swift */,
 			);
 			path = BusinessLogic;
 			sourceTree = "<group>";
@@ -343,11 +349,13 @@
 				416AE715231A8FD900A54482 /* UIView+NibLoadable.swift in Sources */,
 				417B202C2311E0D3009FF015 /* Storable.swift in Sources */,
 				417B202E2311E12B009FF015 /* LocalDatabase.swift in Sources */,
+				416AE726231B442100A54482 /* Alertable.swift in Sources */,
 				417B1FFF2311613A009FF015 /* HTTPClient.swift in Sources */,
 				417B2024231186AE009FF015 /* Post.swift in Sources */,
 				417B1FC9230F5391009FF015 /* AppDelegate.swift in Sources */,
 				416AE720231B350C00A54482 /* UITableView+BatchUpdates.swift in Sources */,
 				417B201A2311798E009FF015 /* DebugPrint.swift in Sources */,
+				416AE724231B42B100A54482 /* PhotoSaver.swift in Sources */,
 				417B20312312B60C009FF015 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
