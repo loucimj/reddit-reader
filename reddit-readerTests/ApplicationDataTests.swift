@@ -33,6 +33,7 @@ class ApplicationDataTests: XCTestCase {
             XCTFail("couldnt initialize post data")
             return
         }
+        resetDatabase()
         ApplicationData.shared.addMorePosts(posts: [post])
         XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 1, "There should be one post")
     }
@@ -42,6 +43,7 @@ class ApplicationDataTests: XCTestCase {
             XCTFail("couldnt initialize post data")
             return
         }
+        resetDatabase()
         ApplicationData.shared.addMorePosts(posts: [post])
         ApplicationData.shared.addMorePosts(posts: [secondPost])
         XCTAssertEqual(ApplicationData.shared.localDatabase.posts.count, 2, "There should be two posts")
@@ -51,6 +53,7 @@ class ApplicationDataTests: XCTestCase {
             XCTFail("couldnt initialize post data")
             return
         }
+        resetDatabase()
         ApplicationData.shared.addMorePosts(posts: [post])
         ApplicationData.shared.addMorePosts(posts: [secondPost])
         ApplicationData.shared.addMorePosts(posts: [post])
