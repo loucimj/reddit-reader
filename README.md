@@ -24,7 +24,7 @@ It is not using any kind of library and is made 100% in Swift.
 It has the following folder structure:
 
 Folder | Description
---- | --- | ---
+--- | ---
 *BusinessLogic* | It holds the files that will have the logic of the app. How to handle data:`PostsHandler`, the data for the app: `ApplicationData`, how to save data to the local file system: `Storable`, and how to show messages to the user: `Alertable`.
 *Models* | The only two models are the `Post` and `LocalDatabase` structs that describe the entity that the application is handling and the database of the app.
 *Services* | The `PostsService` class is responsible to use the `HTTPClient` class to get data from reddit's http service.
